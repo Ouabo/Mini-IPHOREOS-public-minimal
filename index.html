@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Mini-IPHOREOS</title>
-<meta name="description" content="A toy wall-approach robot, simulated end-to-end, built to test -- not assume -- whether a concept-event-context-policy architecture can learn, adapt, transfer, and stay trustworthy.">
+<meta name="description" content="A toy wall-approach robot, simulated end-to-end, built to test, not assume, whether a concept-event-context-policy architecture can learn, adapt, transfer, and stay trustworthy.">
 <style>
   :root{
     --bg:#F6FAFA; --surface:#FFFFFF; --surface-2:#EEF5F5;
@@ -140,6 +140,7 @@
   <div class="wrap nav-row">
     <div class="wordmark">Mini<span>-</span>IPHOREOS</div>
     <nav class="navlinks">
+      <a href="#how-it-works">How it works</a>
       <a href="#evidence">Evidence (O1&ndash;O4)</a>
       <a href="#videos">Videos</a>
       <a href="#docs">Documentation</a>
@@ -154,8 +155,8 @@
     <div class="hero-grid">
       <div>
         <div class="eyebrow">Desktop cognitive-architecture demonstrator</div>
-        <h1>A small robot, honestly evaluated &mdash; as preliminary evidence for four much larger goals.</h1>
-        <p class="thesis">Mini-IPHOREOS is a toy wall-approach robot, simulated end-to-end, built to test &mdash; not assume &mdash;
+        <h1>A small robot, honestly evaluated: preliminary evidence for four much larger goals.</h1>
+        <p class="thesis">Mini-IPHOREOS is a toy wall-approach robot, simulated end-to-end, built to test, not assume,
           whether a concept&ndash;event&ndash;context&ndash;policy architecture can learn, adapt, transfer, and stay
           trustworthy under a fixed interaction budget.</p>
         <div class="badge-row">
@@ -171,16 +172,94 @@
       </div>
       <div class="hero-art">
         <img alt="Mini-IPHOREOS concept illustration" src="baseline_v1/assets/robot_concept.png">
-        <div class="cap">AI-generated concept illustration &middot; not a photograph of the physical build</div>
       </div>
     </div>
   </section>
 
-  <section>
+  <section id="how-it-works">
     <div class="section-head">
+      <div class="eyebrow">Read this before anything else</div>
+      <h2>The task, the architecture, and what O1&ndash;O4 actually check</h2>
+      <p class="muted">The robot has one job: drive toward a cardboard wall and stop at a target distance, under a
+        distance sensor that can be noisy and, in the harder tests, quietly biased. Everything else on this page is
+        about how it decides when to move, when to re-check, and when to call itself done, and how that decision
+        process is evaluated against four separate objectives.</p>
+    </div>
+
+    <figure style="margin:0 0 30px 0;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px 20px 18px">
+      <svg viewBox="0 0 920 300" width="100%" role="img" aria-labelledby="loop-title loop-desc" style="display:block;overflow:visible">
+        <title id="loop-title">The sense, concept, context, policy loop</title>
+        <desc id="loop-desc">A noisy sensor reading feeds a belief over distance and speed, which feeds an inferred context, which feeds a planner that chooses to move, re-sample, or finish, which acts on the robot and produces a new sensor reading. An event log sits underneath the concept and policy stages, and a trustworthiness boundary wraps the whole loop.</desc>
+
+        <rect x="8" y="8" width="904" height="284" rx="16" fill="none" stroke="var(--red)" stroke-width="1.5" stroke-dasharray="5 5" opacity="0.55"/>
+        <text x="26" y="286" font-family="var(--mono)" font-size="12" fill="var(--red)" opacity="0.85">O4 &middot; bounded trustworthiness: verification rule + hard constraint + full log, around every stage</text>
+
+        <g font-family="var(--mono)" font-size="13" font-weight="600">
+          <rect x="30" y="40" width="140" height="78" rx="10" fill="var(--surface-2)" stroke="var(--line)"/>
+          <text x="100" y="72" text-anchor="middle" fill="var(--ink)">Sense</text>
+          <text x="100" y="92" text-anchor="middle" font-family="var(--sans)" font-weight="400" font-size="11" fill="var(--ink-soft)">noisy distance</text>
+          <text x="100" y="105" text-anchor="middle" font-family="var(--sans)" font-weight="400" font-size="11" fill="var(--ink-soft)">reading</text>
+
+          <rect x="212" y="40" width="140" height="78" rx="10" fill="var(--surface-2)" stroke="var(--teal)" stroke-width="2"/>
+          <text x="282" y="64" text-anchor="middle" fill="var(--ink)">Concept</text>
+          <text x="282" y="84" text-anchor="middle" font-family="var(--sans)" font-weight="400" font-size="11" fill="var(--ink-soft)">joint belief:</text>
+          <text x="282" y="98" text-anchor="middle" font-family="var(--sans)" font-weight="400" font-size="11" fill="var(--ink-soft)">distance &amp; speed</text>
+          <text x="282" y="30" text-anchor="middle" font-size="11" fill="var(--teal)">O1</text>
+
+          <rect x="394" y="40" width="140" height="78" rx="10" fill="var(--surface-2)" stroke="var(--gold)" stroke-width="2"/>
+          <text x="464" y="64" text-anchor="middle" fill="var(--ink)">Context</text>
+          <text x="464" y="84" text-anchor="middle" font-family="var(--sans)" font-weight="400" font-size="11" fill="var(--ink-soft)">inferred regime:</text>
+          <text x="464" y="98" text-anchor="middle" font-family="var(--sans)" font-weight="400" font-size="11" fill="var(--ink-soft)">normal or slow</text>
+          <text x="464" y="30" text-anchor="middle" font-size="11" fill="var(--gold)">O2</text>
+
+          <rect x="576" y="40" width="140" height="78" rx="10" fill="var(--surface-2)" stroke="var(--violet)" stroke-width="2"/>
+          <text x="646" y="64" text-anchor="middle" fill="var(--ink)">Policy</text>
+          <text x="646" y="84" text-anchor="middle" font-family="var(--sans)" font-weight="400" font-size="11" fill="var(--ink-soft)">receding-horizon</text>
+          <text x="646" y="98" text-anchor="middle" font-family="var(--sans)" font-weight="400" font-size="11" fill="var(--ink-soft)">planner picks action</text>
+          <text x="646" y="30" text-anchor="middle" font-size="11" fill="var(--violet)">O3</text>
+
+          <rect x="758" y="40" width="140" height="78" rx="10" fill="var(--surface-2)" stroke="var(--line)"/>
+          <text x="828" y="64" text-anchor="middle" fill="var(--ink)">Act</text>
+          <text x="828" y="84" text-anchor="middle" font-family="var(--sans)" font-weight="400" font-size="11" fill="var(--ink-soft)">MOVE &middot; SAMPLE</text>
+          <text x="828" y="98" text-anchor="middle" font-family="var(--sans)" font-weight="400" font-size="11" fill="var(--ink-soft)">&middot; DONE</text>
+        </g>
+
+        <g stroke="var(--ink-soft)" stroke-width="1.5" fill="none" marker-end="url(#arrow)">
+          <path d="M170 79 L212 79"/>
+          <path d="M352 79 L394 79"/>
+          <path d="M534 79 L576 79"/>
+          <path d="M716 79 L758 79"/>
+        </g>
+        <path d="M828 118 C 828 190, 100 190, 100 118" stroke="var(--ink-soft)" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+        <text x="464" y="203" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="var(--ink-soft)">next control step</text>
+
+        <rect x="300" y="226" width="340" height="46" rx="10" fill="var(--surface)" stroke="var(--line)"/>
+        <path d="M282 118 L282 200 L320 226" stroke="var(--ink-soft)" stroke-width="1" fill="none" stroke-dasharray="3 3"/>
+        <path d="M646 118 L646 200 L600 226" stroke="var(--ink-soft)" stroke-width="1" fill="none" stroke-dasharray="3 3"/>
+        <text x="470" y="245" text-anchor="middle" font-family="var(--mono)" font-size="12" font-weight="600" fill="var(--ink)">Event log</text>
+        <text x="470" y="261" text-anchor="middle" font-family="var(--sans)" font-size="11" fill="var(--ink-soft)">intended action vs. realised outcome, every step</text>
+        <text x="308" y="240" font-family="var(--mono)" font-size="11" fill="var(--teal)">O1</text>
+
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" fill="var(--ink-soft)"/>
+          </marker>
+        </defs>
+      </svg>
+      <figcaption class="muted" style="font-size:13px;margin-top:10px">
+        One control step, repeated until the robot verifies it has stopped in the target band. <b style="color:var(--teal)">O1</b> asks
+        whether the concept (belief) and event log are learned and calibrated rather than hard-coded.
+        <b style="color:var(--gold)">O2</b> asks whether context inference concentrates computation on the active
+        regime without discarding the alternative. <b style="color:var(--violet)">O3</b> asks whether the policy's
+        learned pieces transfer to a goal they were not trained on. <b style="color:var(--red)">O4</b> asks whether
+        the whole loop stays inside hard safety constraints and leaves a full, inspectable log.
+      </figcaption>
+    </figure>
+
+    <div class="section-head" style="margin-top:6px">
       <div class="eyebrow">Three systems, one task</div>
       <h2>Baseline &rarr; Extended &rarr; Transfer</h2>
-      <p class="muted">Same observable task throughout &mdash; approach a wall, verify distance &mdash; so every
+      <p class="muted">Same observable task throughout: approach a wall, verify distance. Every
         improvement is attributable to the decision architecture, not a changed benchmark.</p>
     </div>
     <div class="lineage">
@@ -209,7 +288,7 @@
     <div class="section-head">
       <div class="eyebrow">What the toy actually shows</div>
       <h2>Preliminary evidence, mapped to four objectives</h2>
-      <p class="muted">O1&ndash;O4 describe the eventual TRL4 demonstrator &mdash; two real task contexts, on hardware.
+      <p class="muted">O1&ndash;O4 describe the eventual TRL4 demonstrator: two real task contexts, on hardware.
         This toy does not claim to be that. Each card pairs the toy-scale evidence with what it does not establish.</p>
     </div>
     <div class="evid-grid">
@@ -217,22 +296,22 @@
         <div class="tag">O1 &middot; Learn grounded concepts and events</div>
         <h3>Calibrated, held-out&#8209;replicated prediction</h3>
         <div class="evidence">Memory+fast reconvergence: <span class="num">3.3</span> (dev) vs
-          <span class="num">3.2</span> decisions (held-out, untouched seeds) &mdash; replicated, not re-tuned.</div>
+          <span class="num">3.2</span> decisions (held-out, untouched seeds), replicated, not re-tuned.</div>
         <div class="caveat"><b>Not shown:</b> entities/relations generalising beyond training appearances.</div>
       </div>
       <div class="evid-card" style="--accent:var(--gold)">
         <div class="tag">O2 &middot; Infer context, allocate computation</div>
         <h3>A compact, non-discarding hypothesis set</h3>
-        <div class="evidence">Belief mass concentrates on the active regime without deleting the alternative &mdash;
-          it can still recover when evidence changes.</div>
-        <div class="caveat"><b>Not shown:</b> hardware-level latency, memory or energy &mdash; logical decisions only.</div>
+        <div class="evidence">Belief mass concentrates on the active regime without deleting the alternative,
+          so it can still recover when evidence changes.</div>
+        <div class="caveat"><b>Not shown:</b> hardware-level latency, memory or energy; logical decisions only.</div>
       </div>
       <div class="evid-card" style="--accent:var(--violet)">
         <div class="tag">O3 &middot; Recompose knowledge for adaptive planning</div>
         <h3>A measured transfer effect, not a claim</h3>
         <div class="evidence">Post-switch reconvergence: <span class="num">5.20 &rarr; 3.79</span> decisions after
-          transfer, paired over 100 deployments &mdash; faster in 61, tied in 32, slower in only 7.</div>
-        <div class="caveat"><b>Not shown:</b> overall task-completion time, which stays unchanged &mdash; reported anyway.</div>
+          transfer, paired over 100 deployments: faster in 61, tied in 32, slower in only 7.</div>
+        <div class="caveat"><b>Not shown:</b> overall task-completion time, which stays unchanged (reported anyway).</div>
       </div>
       <div class="evid-card" style="--accent:var(--red)">
         <div class="tag">O4 &middot; Establish bounded trustworthiness</div>
@@ -248,7 +327,7 @@
     <div class="section-head">
       <div class="eyebrow">Captioned, silent, honest</div>
       <h2>Four walkthroughs</h2>
-      <p class="muted">Every number on screen traces to a published result &mdash; nothing is computed fresh for the
+      <p class="muted">Every number on screen traces to a published result; nothing is computed fresh for the
         camera. Thumbnails below are stand-ins; click through to play the actual video file.</p>
     </div>
     <div class="video-grid">
@@ -294,7 +373,7 @@
     </div>
     <div class="doc-list">
       <a class="doc-row" href="Mathematical_Model_EXT1.pdf">
-        <div><div class="t">Mathematical Model &mdash; Extended &amp; Transfer systems</div>
+        <div><div class="t">Mathematical Model: Extended and Transfer systems</div>
           <div class="d">Every equation, four diagrams, worked numeric examples, 21 pages.</div></div>
         <div class="go">PDF &rarr;</div>
       </a>
@@ -309,7 +388,7 @@
         <div class="go">PDF &rarr;</div>
       </a>
       <a class="doc-row" href="baseline_v1/Tutorial_A_to_Z.pdf">
-        <div><div class="t">Baseline system &mdash; A-to-Z physical build tutorial</div>
+        <div><div class="t">Baseline system: A-to-Z physical build tutorial</div>
           <div class="d">The &euro;107 hardware plan this all eventually has to run on.</div></div>
         <div class="go">PDF &rarr;</div>
       </a>
