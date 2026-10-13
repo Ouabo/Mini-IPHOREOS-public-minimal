@@ -110,6 +110,7 @@
   .video-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;text-decoration:none;color:var(--ink);
               display:block}
   .video-thumb{position:relative;aspect-ratio:16/9;background:linear-gradient(135deg, var(--surface-2), var(--thumb-accent, var(--teal)) 160%);overflow:hidden}
+  .video-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
   .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
   .play span{width:52px;height:52px;border-radius:50%;background:rgba(10,18,30,.55);display:flex;align-items:center;justify-content:center;
              border:1px solid rgba(255,255,255,.5)}
@@ -345,6 +346,7 @@
 
     <a class="featured-video" href="Mini_IPHOREOS_EXT1_Video/O1_O4_Overview_EN.mp4" style="text-decoration:none;color:inherit">
       <div class="video-thumb" style="--thumb-accent:var(--teal)">
+        <img src="Mini_IPHOREOS_EXT1_Video/thumbnails/O1_O4_Overview_EN.jpg" alt="Title card for the O1-O4 overview video" loading="lazy">
         <div class="play"><span><svg width="20" height="20" viewBox="0 0 16 16" fill="white"><path d="M3 2l11 6-11 6z"/></svg></span></div>
       </div>
       <div class="featured-body">
@@ -369,6 +371,7 @@
     <div class="video-grid">
       <a class="video-card" href="Mini_IPHOREOS_EXT1_Video/EXT1_Explanation_EN.mp4">
         <div class="video-thumb" style="--thumb-accent:var(--gold)">
+          <img src="Mini_IPHOREOS_EXT1_Video/thumbnails/EXT1_Explanation_EN.jpg" alt="Title card for the Milestone 1 video" loading="lazy">
           <div class="play"><span><svg width="16" height="16" viewBox="0 0 16 16" fill="white"><path d="M3 2l11 6-11 6z"/></svg></span></div>
         </div>
         <div class="video-meta"><div class="len">MILESTONE 1</div>
@@ -380,6 +383,7 @@
       </a>
       <a class="video-card" href="Mini_IPHOREOS_EXT1_Video/EXT1_Memory_Explanation_EN.mp4">
         <div class="video-thumb" style="--thumb-accent:var(--violet)">
+          <img src="Mini_IPHOREOS_EXT1_Video/thumbnails/EXT1_Memory_Explanation_EN.jpg" alt="Title card for the Milestone 2 video" loading="lazy">
           <div class="play"><span><svg width="16" height="16" viewBox="0 0 16 16" fill="white"><path d="M3 2l11 6-11 6z"/></svg></span></div>
         </div>
         <div class="video-meta"><div class="len">MILESTONE 2</div>
@@ -391,6 +395,7 @@
       </a>
       <a class="video-card" href="Mini_IPHOREOS_EXT1_Video/EXT1_BiasHeldout_Explanation_EN.mp4">
         <div class="video-thumb" style="--thumb-accent:var(--red)">
+          <img src="Mini_IPHOREOS_EXT1_Video/thumbnails/EXT1_BiasHeldout_Explanation_EN.jpg" alt="Title card for the Milestones 3-4 video" loading="lazy">
           <div class="play"><span><svg width="16" height="16" viewBox="0 0 16 16" fill="white"><path d="M3 2l11 6-11 6z"/></svg></span></div>
         </div>
         <div class="video-meta"><div class="len">MILESTONES 3&ndash;4</div>
