@@ -93,8 +93,20 @@
   .evid-card .caveat b{color:var(--gold)}
 
   /* videos */
-  .video-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-  @media (max-width:700px){.video-grid{grid-template-columns:1fr}}
+  .featured-video{display:grid;grid-template-columns:.9fr 1.1fr;gap:0;background:var(--surface);
+      border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:22px}
+  @media (max-width:760px){.featured-video{grid-template-columns:1fr}}
+  .featured-video .video-thumb{aspect-ratio:auto;height:100%;min-height:220px}
+  .featured-body{padding:26px 28px}
+  .featured-body h3{font-size:19px;margin-top:6px}
+  .chapter-list{margin-top:16px;display:flex;flex-direction:column;gap:10px}
+  .chapter-row{display:flex;gap:12px;align-items:baseline}
+  .chapter-row .obj{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--c);min-width:60px;flex-shrink:0}
+  .chapter-row .time{font-family:var(--mono);font-size:11px;color:var(--ink-soft);min-width:38px;flex-shrink:0}
+  .chapter-row p{font-size:13.5px;margin:0;color:var(--ink)}
+  .milestone-head{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 14px}
+  .video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media (max-width:760px){.video-grid{grid-template-columns:1fr}}
   .video-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;text-decoration:none;color:var(--ink);
               display:block}
   .video-thumb{position:relative;aspect-ratio:16/9;background:linear-gradient(135deg, var(--surface-2), var(--thumb-accent, var(--teal)) 160%);overflow:hidden}
@@ -328,24 +340,43 @@
       <div class="eyebrow">Captioned, silent, honest</div>
       <h2>Four walkthroughs</h2>
       <p class="muted">Every number on screen traces to a published result; nothing is computed fresh for the
-        camera. Thumbnails below are stand-ins; click through to play the actual video file.</p>
+        camera. The thumbnail below is a stand-in; click through to play the actual file.</p>
     </div>
-    <div class="video-grid">
-      <a class="video-card" href="Mini_IPHOREOS_EXT1_Video/O1_O4_Overview_EN.mp4">
-        <div class="video-thumb" style="--thumb-accent:var(--teal)">
-          <div class="play"><span><svg width="16" height="16" viewBox="0 0 16 16" fill="white"><path d="M3 2l11 6-11 6z"/></svg></span></div>
+
+    <a class="featured-video" href="Mini_IPHOREOS_EXT1_Video/O1_O4_Overview_EN.mp4" style="text-decoration:none;color:inherit">
+      <div class="video-thumb" style="--thumb-accent:var(--teal)">
+        <div class="play"><span><svg width="20" height="20" viewBox="0 0 16 16" fill="white"><path d="M3 2l11 6-11 6z"/></svg></span></div>
+      </div>
+      <div class="featured-body">
+        <div class="len">3:15 &middot; WATCH FIRST</div>
+        <h3>What a desktop wall-approach robot already shows about four much bigger goals</h3>
+        <p class="muted" style="font-size:13.5px;margin-top:8px">Same plain language as the diagram above, now walking
+          through the actual recorded runs. Each row below is one chapter of the video.</p>
+        <div class="chapter-list">
+          <div class="chapter-row"><span class="obj" style="--c:var(--teal)">O1</span><span class="time">0:10</span>
+            <p>The robot's confidence band on distance tightens as it gathers readings, then the same numbers are repeated, unchanged, on trials it had never seen before: 3.3 decisions on the original run, 3.2 on the new one.</p></div>
+          <div class="chapter-row"><span class="obj" style="--c:var(--gold)">O2</span><span class="time">0:55</span>
+            <p>Watch the regime meter hold two guesses at once (normal floor, or a slower one) and shift confidence between them as readings arrive, without ever deleting the guess that is currently losing.</p></div>
+          <div class="chapter-row"><span class="obj" style="--c:var(--violet)">O3</span><span class="time">1:40</span>
+            <p>Two robots face a new target distance with a hidden speed bias; the one that carried over what it learned on the first task recognises the change faster, on average, across a hundred simulated robots: 3.8 decisions against 5.2.</p></div>
+          <div class="chapter-row"><span class="obj" style="--c:var(--red)">O4</span><span class="time">2:30</span>
+            <p>The robot receives a reading far outside what its own uncertainty says is plausible, catches it, and refuses to trust it; separately, the planner will not consider an action that risks overshooting the target, and every decision is written to a log that can be checked afterward.</p></div>
         </div>
-        <div class="video-meta"><div class="len">3:15 &middot; O1&ndash;O4 OVERVIEW</div>
-          <h3>Toy-scale evidence for the grant's four objectives</h3>
-          <p>One chapter per objective, each with its own visual and its own caveat on screen.</p></div>
-      </a>
+      </div>
+    </a>
+
+    <h3 class="milestone-head">Three earlier milestone recordings, same trial data, no voice-over</h3>
+    <div class="video-grid">
       <a class="video-card" href="Mini_IPHOREOS_EXT1_Video/EXT1_Explanation_EN.mp4">
         <div class="video-thumb" style="--thumb-accent:var(--gold)">
           <div class="play"><span><svg width="16" height="16" viewBox="0 0 16 16" fill="white"><path d="M3 2l11 6-11 6z"/></svg></span></div>
         </div>
         <div class="video-meta"><div class="len">MILESTONE 1</div>
           <h3>Fair baselines &amp; a planner that stops stalling</h3>
-          <p>Why a wider action menu alone wasn't the whole story.</p></div>
+          <p>First, the old and new controller are given the exact same action options, so the comparison is fair.
+            Then the new two-step planner handles the one case most likely to keep re-measuring forever instead of
+            moving, and an early, unconfirmed look at what an unknown sensor error does to a robot that actively
+            seeks more information.</p></div>
       </a>
       <a class="video-card" href="Mini_IPHOREOS_EXT1_Video/EXT1_Memory_Explanation_EN.mp4">
         <div class="video-thumb" style="--thumb-accent:var(--violet)">
@@ -353,7 +384,10 @@
         </div>
         <div class="video-meta"><div class="len">MILESTONE 2</div>
           <h3>A negative result, a diagnosis, then a fix</h3>
-          <p>The library alone didn't help. Watch why, and what did.</p></div>
+          <p>The floor alternates between normal and slow every few moves. At first, both robots take several
+            seconds to realise they are back in a condition seen before: recognising a repeat, not estimating
+            speed itself, turns out to be the real bottleneck. A version that explicitly recalls a past condition
+            snaps back almost immediately instead of drifting back slowly.</p></div>
       </a>
       <a class="video-card" href="Mini_IPHOREOS_EXT1_Video/EXT1_BiasHeldout_Explanation_EN.mp4">
         <div class="video-thumb" style="--thumb-accent:var(--red)">
@@ -361,7 +395,11 @@
         </div>
         <div class="video-meta"><div class="len">MILESTONES 3&ndash;4</div>
           <h3>Breaking a confound, then freezing everything</h3>
-          <p>A sensor-bias reference, and a held-out re-run that wasn't allowed to be re-tuned.</p></div>
+          <p>A robot whose sensor reads a constant distance short looks, from its decisions alone, identical to one
+            that is simply slower; that confusion alone was costing real accuracy. A short reference check at a
+            known distance fixes most of the gap. Every setting is then frozen and re-tested, unchanged, on a
+            completely fresh batch of cases nobody had seen before, including one case where the fix honestly
+            does slightly worse.</p></div>
       </a>
     </div>
   </section>
