@@ -1,0 +1,9 @@
+numpy>=1.24
+matplotlib>=3.7
+pytest>=7
+# Rebuilding the tutorial additionally requires Microsoft Edge:
+playwright>=1.40
+PyMuPDF>=1.23
+# Rebuilding the explanatory video (tools/make_ext1_video.py) additionally requires:
+Pillow>=10
+imageio-ffmpeg>=0.4

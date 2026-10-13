@@ -1,0 +1,18 @@
+{
+  "repository": "https://github.com/KitronikLtd/micropython-microbit-kitronik-MOVE-motor",
+  "commit": "b551ddefa1099afec1a4901d2b19bb4aa9228c15",
+  "files": {
+    "firmware\\KitronikMOVEMotor.py": {
+      "sha256": "279b016b7ec283bed5fba5aa206dce913092d58bb4d8fe9f0ea58a91e279d593"
+    },
+    "docs\\VENDOR_MOVEMotor.py": {
+      "sha256": "0ef79e27bbb4d80f72dc2a6b994efba4be99db671d131aebe8cfe3f4fdf3467e"
+    },
+    "docs\\VENDOR_README.md": {
+      "sha256": "c15c67847d895f7609213af4a78a2c63ac54bcd53a1a75ff8ef01b4b3e2df8b6"
+    },
+    "docs\\VENDOR_LICENSE": {
+      "sha256": "bff823cac114cff8b3789e013de63e8e14e83b095179a70a1620f5de43b530ae"
+    }
+  }
+}

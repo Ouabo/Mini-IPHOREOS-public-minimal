@@ -1,0 +1,37 @@
+{
+  "checked_date": "2026-09-09",
+  "currency": "EUR",
+  "planning_total": 107.28,
+  "core_listed_hardware": 63.28,
+  "delivery_allowance": 15,
+  "reserve": 15,
+  "not_a_checkout_quote": true,
+  "alternate_chassis": {
+    "seller": "DigiKey Germany",
+    "listed_incl_vat_eur": 39.08,
+    "url": "https://www.digikey.de/de/products/detail/kitronik-ltd/5683/12525204",
+    "status": "search listing; checkout price and delivery unverified"
+  },
+  "optional_usb_c_cable": {
+    "allowance_eur": 6,
+    "url": "https://www.berrybase.de/usb-2.0-adapterkabel-usb-c-stecker-micro-b-stecker-schwarz/laenge-1-0-m"
+  },
+  "phases": [
+    {
+      "phase": "Simulation",
+      "eur": 0
+    },
+    {
+      "phase": "Hardware + consumables",
+      "eur": 77.28
+    },
+    {
+      "phase": "Delivery",
+      "eur": 15
+    },
+    {
+      "phase": "Retained reserve",
+      "eur": 15
+    }
+  ]
+}

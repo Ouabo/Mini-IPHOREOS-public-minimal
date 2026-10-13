@@ -1,0 +1,7 @@
+# Concept illustration provenance
+
+Asset: `robot_concept.png`. Generated using the built-in imagegen tool (new image, no reference image). This is a concept illustration, not a product photograph, mechanical drawing or evidence of a completed robot. Use the manufacturer instructions for assembly. Exact appearance and component placement may differ.
+
+## Generation prompt
+
+Use case: scientific-educational. Create a high-quality wide 3:2 concept illustration for an illustrated beginner robotics manual called Mini-IPHOREOS. Show a small palm-sized two-wheel educational robot on a light wooden FLOOR facing a broad upright cardboard box wall. The robot resembles a simple micro:bit educational buggy: exposed green circuit-board chassis, two black rubber side wheels, tiny rear skid, upright small black micro:bit board with a red 5x5 LED matrix, two round silver ultrasonic transducers facing the wall, AA battery holders. No robot arm, no camera, no lidar, no additional screens, no external wires. A real measuring ruler lies on the floor alongside the robot-wall gap; avoid legible numerical markings or exact scale claims. Robot is stopped a short clear distance before cardboard. Clean editorial 3D rendering with believable proportions, soft daylight, navy and teal accents, uncluttered white background. Composition shows the full robot and cardboard target clearly. No text, no logos, no watermark. This is an illustrative concept, not a product photograph or engineering assembly drawing.

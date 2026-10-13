@@ -1,0 +1,22 @@
+{
+  "duration_seconds": 205,
+  "fps": 12,
+  "resolution": [
+    1280,
+    720
+  ],
+  "source_sha256": {
+    "cognitive\\controller.py": "e95c98a707680953b5001d70e6038be3aa283afb1b3a65b73c4179263bbd77c4",
+    "cognitive\\model.py": "e48ccdb22931506e82a28b501d72468e33196ee9b2a28afb72474443610c9345",
+    "cognitive\\baselines.py": "ea8299a72dcc8e9175cb5fb89136311eaa48996aa2e48222facc17c3b63bcaf3",
+    "experiments\\run_transfer_validation.py": "86d624fa35ca433bbd107c31f670e35ca7cc1326f4b4c227560ec46ac207ce2a"
+  },
+  "traces_used": {
+    "o1_normal": "results_ext1/trace_normal_ext1.json",
+    "o2_switch_memory_fast": "results_ext1/trace_switch_ext1_memory_fast.json",
+    "o3_cold_start": "results_transfer/trace_switch_cold_start_seed10000.json",
+    "o3_zero_update_transfer": "results_transfer/trace_switch_zero_update_transfer_seed10000.json",
+    "o4_outlier": "results_ext1/trace_outlier_ext1.json"
+  },
+  "notes": "Silent English-captioned desktop simulation mapping Mini-IPHOREOS's existing toy-scale results onto the EIC grant's own O1-O4 objective language (EIC_Objectives_Methodology/IPHOREOS_Section_1_3_Objectives_and_Methodology_Final3.docx). This does not claim the toy wall-approach robot satisfies O1-O4 at TRL4 scale; every chapter states its scope limit on screen. Revised from the first cut so each objective has its own large, distinct visual (replication bars / context meter / scoreboard / rejection alert) and colour badge, not a reused generic panel. The O3 chapter uses seed 10000 (deployment_factor~0.808), the case closest to the published paired-mean effect, not a cherry-picked best case. No physical robot data or hardware validation is presented."
+}

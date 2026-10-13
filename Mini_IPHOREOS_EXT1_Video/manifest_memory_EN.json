@@ -1,0 +1,19 @@
+{
+  "duration_seconds": 150,
+  "fps": 12,
+  "resolution": [
+    1280,
+    720
+  ],
+  "source_sha256": {
+    "cognitive\\model.py": "b3e36c1c6bfb1a1fecf013aa451a02dd37c373079fb8d6281c5d0f34860460e4",
+    "cognitive\\controller.py": "63ccbf45fae372e27d71e1fc6f616e8f6606b3c9d3ea22363a02be0683f8e1f1",
+    "cognitive\\baselines.py": "b0df25a4f88b5f4749efaefd2ca7744c05759b759ae27d650b42200bb04a4564"
+  },
+  "traces_used": {
+    "ext1": "trace_repeated_ext1.json",
+    "ext1_memory": "trace_repeated_ext1_memory.json",
+    "ext1_memory_fast": "trace_repeated_ext1_memory_fast.json"
+  },
+  "notes": "Silent English-captioned desktop simulation. The robot's on-screen position is driven by simulator_true_distance/simulator_time from the seed-10000 'repeated' trace (unmodified), so relative speed between normal/slow segments is physically accurate, not stylised. The halo/flash reports the controller's belief about speed (red/teal/violet), not position: distance is corrected by direct sensor readings every step regardless of architecture, so a position-only marker would not show the memory effect, which lives specifically in the speed estimate. Jump moments (violet flash) are real discontinuities (>1.5 cm/s) detected directly in estimated_speed, not added for effect. The reconvergence numbers in the closing chapter are 100-trial averages from results_ext1/reconvergence_summary.csv, not read off this one illustrative trial. No physical robot data or hardware validation is presented."
+}

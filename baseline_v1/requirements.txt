@@ -1,0 +1,8 @@
+numpy>=1.24
+matplotlib>=3.7
+pytest>=7
+# Only for rebuilding the illustrated PDF:
+playwright>=1.40
+PyMuPDF>=1.23
+# Only for optional USB serial recording:
+pyserial>=3.5

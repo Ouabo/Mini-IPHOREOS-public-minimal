@@ -1,0 +1,33 @@
+{
+  "duration_seconds": 150,
+  "fps": 12,
+  "resolution": [
+    1280,
+    720
+  ],
+  "seed": 7,
+  "controller_sha256": "34a5703128ad51306b896a7faa0014f1ea01b4bbed5125b5f5da4df6d863ea37",
+  "results": {
+    "normal": {
+      "terminal": "DONE",
+      "true_final_cm": 25.908938327404478,
+      "false_verification": false
+    },
+    "prudent": {
+      "terminal": "DONE",
+      "true_final_cm": 24.810348128714423,
+      "false_verification": false
+    },
+    "biais": {
+      "terminal": "DONE",
+      "true_final_cm": 21.32791008450434,
+      "false_verification": false
+    },
+    "corrige": {
+      "terminal": "DONE",
+      "true_final_cm": 25.908938327404478,
+      "false_verification": false
+    }
+  },
+  "notes": "Silent English-captioned simulation. Manual contexts and predefined concepts. Known bias correction is illustrative, not physical calibration. Same fixed seed selected before inspecting outcomes. Comparison playback normalised per episode."
+}

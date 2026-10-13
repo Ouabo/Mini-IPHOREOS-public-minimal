@@ -1,0 +1,53 @@
+{
+  "prediction_update": {
+    "prior": {
+      "mu": 48.89,
+      "variance": 4.64
+    },
+    "posterior": {
+      "mu_cm": 48.949074074074076,
+      "sd_cm": 1.46565621758588,
+      "moves": 1,
+      "stationary_samples": 1,
+      "reason": "short_forward_pulse",
+      "terminal": null
+    }
+  },
+  "normal": {
+    "action": "MOVE",
+    "predicted_lower_cm": 21.11
+  },
+  "careful": {
+    "action": "SAMPLE",
+    "predicted_lower_cm": 19.73
+  },
+  "normal_verification": [
+    "SAMPLE",
+    "SAMPLE",
+    "DONE"
+  ],
+  "careful_verification": [
+    "SAMPLE",
+    "SAMPLE",
+    "SAMPLE",
+    "DONE"
+  ],
+  "gaussian_interpretation": {
+    "1.64": {
+      "central_probability": 0.8989948330517925,
+      "one_sided_tail": 0.050502583474103746,
+      "maximum_mean_error_at_floor_cm": 3.016
+    },
+    "2.33": {
+      "central_probability": 0.9801938488816715,
+      "one_sided_tail": 0.009903075559164254,
+      "maximum_mean_error_at_floor_cm": 2.6020000000000003
+    }
+  },
+  "bias_counterexample": {
+    "synthetic_true_cm": 20,
+    "raw_cm": 25,
+    "terminal": "DONE"
+  },
+  "hardware_tested": false
+}

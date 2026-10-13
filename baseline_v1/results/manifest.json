@@ -1,0 +1,14 @@
+{
+  "python": "3.10.3",
+  "numpy": "2.2.6",
+  "seeds": [
+    0,
+    299
+  ],
+  "trials": 3600,
+  "source_sha256": {
+    "simulate.py": "56128da2386a5983821608331cfe25c09dfa1534cc291fe6e603dd6d15b4e853",
+    "firmware\\belief_controller.py": "34a5703128ad51306b896a7faa0014f1ea01b4bbed5125b5f5da4df6d863ea37"
+  },
+  "warning": "Synthetic feasibility only; no empirical fit or hardware validation. Bias stress intentionally challenges the observation model."
+}

@@ -1,0 +1,22 @@
+{
+  "duration_seconds": 170,
+  "fps": 12,
+  "resolution": [
+    1280,
+    720
+  ],
+  "source_sha256": {
+    "cognitive\\model.py": "b3e36c1c6bfb1a1fecf013aa451a02dd37c373079fb8d6281c5d0f34860460e4",
+    "cognitive\\controller.py": "63ccbf45fae372e27d71e1fc6f616e8f6606b3c9d3ea22363a02be0683f8e1f1",
+    "experiments\\run_simulation.py": "f916e37ba769f304e1b1d7ac3c6842fc25518b9be78222d0c522d2e1cc0ccf4c",
+    "docs\\FROZEN_PARAMETERS.md": "1f69bdf0fb580800ac1e4de37ffc168ea0e19ecc6be34e7c6c2d9ff3c9fc85a8"
+  },
+  "traces_used": {
+    "bias_ext1": "trace_bias_ext1.json",
+    "bias_ext1_bias_ref": "trace_bias_ext1_bias_ref.json",
+    "bias_random_ext1": "trace_bias_random_ext1.json",
+    "bias_random_ext1_bias_ref": "trace_bias_random_ext1_bias_ref.json",
+    "outlier_ext1": "trace_outlier_ext1.json"
+  },
+  "notes": "Silent English-captioned desktop simulation covering Milestones 3 (explicit sensor-bias reference) and 4 (frozen held-out evaluation + outlier scenario). Revised for an investor/reviewer audience: no em-dashes or double-hyphens in captions, and code-level identifiers (policy names, file paths, internal variable names) appear only as small secondary labels next to a plain-English description, never as the primary phrase. The robot's on-screen position is driven by simulator_true_distance/simulator_time from seed-10000 traces (unmodified); the belief halo (red/teal/violet) reports estimated_distance vs simulator_true_distance, which is where the bias/reference story actually lives. The outlier glitch times (7.19s, 8.07s) are the real 'unexpected_outcome' events in trace_outlier_ext1.json, not added for effect. Every aggregate number spoken in captions (success rates, the 54% move ratio, reconvergence decisions, bias estimate errors, the dev-vs-held-out replication figures) is read from results_ext1/{summary,reconvergence_summary,bias_reference_summary,outlier_summary}.csv and results_ext1_heldout/ via experiments/compare_heldout.py, not read off the single illustrative trial shown. No physical robot data or hardware validation is presented."
+}

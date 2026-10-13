@@ -1,0 +1,7 @@
+condition,scenario,n,success_rate,mean_moves,reached_target_rate,mean_decisions_to_target,reconverged_rate,mean_switch_reconvergence
+cold_start,normal,100,1.0,27.48,1.0,28.89,,
+cold_start,switch,100,0.98,46.09,1.0,47.83,1.0,5.2
+zero_update_transfer,normal,100,1.0,27.45,1.0,28.89,,
+zero_update_transfer,switch,100,0.97,45.97,1.0,47.77,1.0,3.79
+adapt_with_updates,normal,100,1.0,27.47,1.0,28.9,,
+adapt_with_updates,switch,100,0.97,46.11,1.0,47.9,1.0,3.85

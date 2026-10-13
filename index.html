@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mini-IPHOREOS</title>
+<meta name="description" content="A toy wall-approach robot, simulated end-to-end, built to test -- not assume -- whether a concept-event-context-policy architecture can learn, adapt, transfer, and stay trustworthy.">
+<style>
+  :root{
+    --bg:#F6FAFA; --surface:#FFFFFF; --surface-2:#EEF5F5;
+    --ink:#0F1E2E; --ink-soft:#4C6270; --line:#DCE6E6;
+    --teal:#0D8080; --teal-bright:#0A9C93; --gold:#9A6B00; --violet:#6A4FB0; --red:#C44B55;
+    --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    --sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0B1425; --surface:#14233A; --surface-2:#19304A;
+      --ink:#EFF5FF; --ink-soft:#A9BAD1; --line:rgba(255,255,255,.12);
+      --teal:#49DBC3; --teal-bright:#6CE9D4; --gold:#FFCD70; --violet:#C6A6FF; --red:#FF7F88;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0B1425; --surface:#14233A; --surface-2:#19304A;
+    --ink:#EFF5FF; --ink-soft:#A9BAD1; --line:rgba(255,255,255,.12);
+    --teal:#49DBC3; --teal-bright:#6CE9D4; --gold:#FFCD70; --violet:#C6A6FF; --red:#FF7F88;
+  }
+
+  *{box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);margin:0;line-height:1.55;font-size:16px}
+  img{max-width:100%;display:block}
+  a{color:var(--teal-bright)}
+  .wrap{max-width:1040px;margin:0 auto;padding-inline:20px}
+  h1,h2,h3{font-family:var(--mono);font-weight:600;text-wrap:balance;letter-spacing:-0.01em;margin:0}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);font-weight:600}
+  p{max-width:68ch}
+  .muted{color:var(--ink-soft)}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:14px;font-weight:600;
+       padding:11px 18px;border-radius:7px;text-decoration:none;border:1px solid transparent;white-space:nowrap}
+  .btn-primary{background:var(--teal);color:#fff}
+  :root[data-theme="dark"] .btn-primary{color:#07211d}
+  @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn-primary{color:#07211d}}
+  .btn-ghost{background:transparent;border-color:var(--line);color:var(--ink)}
+
+  /* header */
+  header.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb, var(--bg) 88%, transparent);
+       backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .nav-row{display:flex;align-items:center;justify-content:space-between;padding-block:14px;gap:16px;flex-wrap:wrap}
+  .wordmark{font-family:var(--mono);font-weight:700;font-size:16px;letter-spacing:-0.01em}
+  .wordmark span{color:var(--teal)}
+  .navlinks{display:flex;gap:22px;font-family:var(--mono);font-size:13px;flex-wrap:wrap}
+  .navlinks a{color:var(--ink-soft);text-decoration:none}
+  .navlinks a:hover{color:var(--ink)}
+
+  /* hero */
+  .hero{padding-block:56px 44px}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
+  @media (max-width:760px){.hero-grid{grid-template-columns:1fr}}
+  .hero h1{font-size:clamp(30px,4.6vw,46px);line-height:1.08;margin-top:10px}
+  .hero .thesis{font-size:18px;color:var(--ink-soft);margin-top:16px}
+  .badge-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+  .badge{font-family:var(--mono);font-size:11.5px;letter-spacing:.03em;color:var(--ink-soft);
+         border:1px solid var(--line);border-radius:100px;padding:5px 11px;background:var(--surface)}
+  .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+  .hero-art{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--surface-2)}
+  .hero-art img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3}
+  .hero-art .cap{position:absolute;left:0;right:0;bottom:0;padding:10px 14px;font-family:var(--mono);font-size:11px;
+      color:#eff5ff;background:linear-gradient(transparent, rgba(5,12,20,.72))}
+
+  /* sections */
+  section{padding-block:52px;border-top:1px solid var(--line)}
+  .section-head{max-width:640px;margin-bottom:30px}
+  .section-head h2{font-size:26px;margin-top:8px}
+
+  /* lineage strip */
+  .lineage{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media (max-width:700px){.lineage{grid-template-columns:1fr}}
+  .lineage-card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px}
+  .lineage-card .k{font-family:var(--mono);font-size:11px;color:var(--teal);letter-spacing:.08em;text-transform:uppercase}
+  .lineage-card h3{font-size:16px;margin-top:6px}
+  .lineage-card p{font-size:13.5px;color:var(--ink-soft);margin-top:6px}
+
+  /* evidence grid (O1-O4) */
+  .evid-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  @media (max-width:700px){.evid-grid{grid-template-columns:1fr}}
+  .evid-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;
+             border-top:3px solid var(--accent)}
+  .evid-card .tag{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--accent)}
+  .evid-card h3{font-size:16.5px;margin-top:8px;line-height:1.3}
+  .evid-card .evidence{font-size:14px;margin-top:10px;color:var(--ink)}
+  .evid-card .num{font-family:var(--mono);font-weight:700;color:var(--accent)}
+  .evid-card .caveat{font-size:12.5px;color:var(--ink-soft);margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
+  .evid-card .caveat b{color:var(--gold)}
+
+  /* videos */
+  .video-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  @media (max-width:700px){.video-grid{grid-template-columns:1fr}}
+  .video-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;text-decoration:none;color:var(--ink);
+              display:block}
+  .video-thumb{position:relative;aspect-ratio:16/9;background:linear-gradient(135deg, var(--surface-2), var(--thumb-accent, var(--teal)) 160%);overflow:hidden}
+  .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+  .play span{width:52px;height:52px;border-radius:50%;background:rgba(10,18,30,.55);display:flex;align-items:center;justify-content:center;
+             border:1px solid rgba(255,255,255,.5)}
+  .play svg{margin-left:3px}
+  .video-meta{padding:14px 16px}
+  .video-meta .len{font-family:var(--mono);font-size:11px;color:var(--teal);letter-spacing:.06em}
+  .video-meta h3{font-size:14.5px;margin-top:5px;line-height:1.3}
+  .video-meta p{font-size:12.5px;color:var(--ink-soft);margin-top:5px}
+
+  /* docs + code */
+  .doc-list{display:flex;flex-direction:column;gap:10px}
+  .doc-row{display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--surface);
+           border:1px solid var(--line);border-radius:10px;padding:14px 18px;text-decoration:none;color:var(--ink)}
+  .doc-row:hover{border-color:var(--teal)}
+  .doc-row .t{font-weight:600;font-size:14.5px}
+  .doc-row .d{font-size:12.5px;color:var(--ink-soft);margin-top:2px}
+  .doc-row .go{font-family:var(--mono);font-size:12px;color:var(--teal-bright);white-space:nowrap}
+
+  .code-panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:26px;
+              display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center}
+  @media (max-width:700px){.code-panel{grid-template-columns:1fr}}
+  .code-panel pre{margin:0;font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);overflow-x:auto}
+  .stat-row{display:flex;gap:22px;margin-top:14px;flex-wrap:wrap}
+  .stat b{display:block;font-family:var(--mono);font-size:19px;color:var(--teal)}
+  .stat span{font-size:12px;color:var(--ink-soft)}
+
+  footer{padding-block:40px;border-top:1px solid var(--line)}
+  footer .foot-row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--ink-soft)}
+  footer .disclaimer{font-size:12.5px;color:var(--ink-soft);max-width:72ch;margin-bottom:18px;
+      background:var(--surface-2);border-radius:10px;padding:14px 16px}
+  footer .disclaimer b{color:var(--gold)}
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-row">
+    <div class="wordmark">Mini<span>-</span>IPHOREOS</div>
+    <nav class="navlinks">
+      <a href="#evidence">Evidence (O1&ndash;O4)</a>
+      <a href="#videos">Videos</a>
+      <a href="#docs">Documentation</a>
+      <a href="#code">Code</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero" style="border-top:none">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">Desktop cognitive-architecture demonstrator</div>
+        <h1>A small robot, honestly evaluated &mdash; as preliminary evidence for four much larger goals.</h1>
+        <p class="thesis">Mini-IPHOREOS is a toy wall-approach robot, simulated end-to-end, built to test &mdash; not assume &mdash;
+          whether a concept&ndash;event&ndash;context&ndash;policy architecture can learn, adapt, transfer, and stay
+          trustworthy under a fixed interaction budget.</p>
+        <div class="badge-row">
+          <span class="badge">Desktop simulation</span>
+          <span class="badge">No physical validation yet</span>
+          <span class="badge">Held-out evaluation</span>
+          <span class="badge">Negative results kept in</span>
+        </div>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#videos">&#9654; Watch the 3&ndash;minute overview</a>
+          <a class="btn btn-ghost" href="#code">View source &amp; tests</a>
+        </div>
+      </div>
+      <div class="hero-art">
+        <img alt="Mini-IPHOREOS concept illustration" src="baseline_v1/assets/robot_concept.png">
+        <div class="cap">AI-generated concept illustration &middot; not a photograph of the physical build</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <div class="eyebrow">Three systems, one task</div>
+      <h2>Baseline &rarr; Extended &rarr; Transfer</h2>
+      <p class="muted">Same observable task throughout &mdash; approach a wall, verify distance &mdash; so every
+        improvement is attributable to the decision architecture, not a changed benchmark.</p>
+    </div>
+    <div class="lineage">
+      <div class="lineage-card">
+        <div class="k">Baseline system</div>
+        <h3>Scalar Bayesian belief</h3>
+        <p>One state, one rule. 3,600 synthetic trials. Exposes the sensor-bias confound the later systems
+          are built to resolve.</p>
+      </div>
+      <div class="lineage-card">
+        <div class="k">Extended system</div>
+        <h3>Joint belief + planner</h3>
+        <p>Distance &amp; speed, inferred context, a receding-horizon planner, an explicit bias reference,
+          a frozen held-out evaluation.</p>
+      </div>
+      <div class="lineage-card">
+        <div class="k">Transfer system</div>
+        <h3>Cross-task evidence for O3</h3>
+        <p>Does a library learned on one goal transfer to a different goal, under a persistent, unseen bias?
+          Tested, not assumed.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="evidence">
+    <div class="section-head">
+      <div class="eyebrow">What the toy actually shows</div>
+      <h2>Preliminary evidence, mapped to four objectives</h2>
+      <p class="muted">O1&ndash;O4 describe the eventual TRL4 demonstrator &mdash; two real task contexts, on hardware.
+        This toy does not claim to be that. Each card pairs the toy-scale evidence with what it does not establish.</p>
+    </div>
+    <div class="evid-grid">
+      <div class="evid-card" style="--accent:var(--teal)">
+        <div class="tag">O1 &middot; Learn grounded concepts and events</div>
+        <h3>Calibrated, held-out&#8209;replicated prediction</h3>
+        <div class="evidence">Memory+fast reconvergence: <span class="num">3.3</span> (dev) vs
+          <span class="num">3.2</span> decisions (held-out, untouched seeds) &mdash; replicated, not re-tuned.</div>
+        <div class="caveat"><b>Not shown:</b> entities/relations generalising beyond training appearances.</div>
+      </div>
+      <div class="evid-card" style="--accent:var(--gold)">
+        <div class="tag">O2 &middot; Infer context, allocate computation</div>
+        <h3>A compact, non-discarding hypothesis set</h3>
+        <div class="evidence">Belief mass concentrates on the active regime without deleting the alternative &mdash;
+          it can still recover when evidence changes.</div>
+        <div class="caveat"><b>Not shown:</b> hardware-level latency, memory or energy &mdash; logical decisions only.</div>
+      </div>
+      <div class="evid-card" style="--accent:var(--violet)">
+        <div class="tag">O3 &middot; Recompose knowledge for adaptive planning</div>
+        <h3>A measured transfer effect, not a claim</h3>
+        <div class="evidence">Post-switch reconvergence: <span class="num">5.20 &rarr; 3.79</span> decisions after
+          transfer, paired over 100 deployments &mdash; faster in 61, tied in 32, slower in only 7.</div>
+        <div class="caveat"><b>Not shown:</b> overall task-completion time, which stays unchanged &mdash; reported anyway.</div>
+      </div>
+      <div class="evid-card" style="--accent:var(--red)">
+        <div class="tag">O4 &middot; Establish bounded trustworthiness</div>
+        <h3>Calibrated beliefs, enforced constraints, a full log</h3>
+        <div class="evidence">An uncertainty-aware verification rule; a hard overshoot-margin exclusion; every
+          decision logged with its own reason.</div>
+        <div class="caveat"><b>Not established:</b> hardware testing. No physical robot has been built or run.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <div class="section-head">
+      <div class="eyebrow">Captioned, silent, honest</div>
+      <h2>Four walkthroughs</h2>
+      <p class="muted">Every number on screen traces to a published result &mdash; nothing is computed fresh for the
+        camera. Thumbnails below are stand-ins; click through to play the actual video file.</p>
+    </div>
+    <div class="video-grid">
+      <a class="video-card" href="Mini_IPHOREOS_EXT1_Video/O1_O4_Overview_EN.mp4">
+        <div class="video-thumb" style="--thumb-accent:var(--teal)">
+          <div class="play"><span><svg width="16" height="16" viewBox="0 0 16 16" fill="white"><path d="M3 2l11 6-11 6z"/></svg></span></div>
+        </div>
+        <div class="video-meta"><div class="len">3:15 &middot; O1&ndash;O4 OVERVIEW</div>
+          <h3>Toy-scale evidence for the grant's four objectives</h3>
+          <p>One chapter per objective, each with its own visual and its own caveat on screen.</p></div>
+      </a>
+      <a class="video-card" href="Mini_IPHOREOS_EXT1_Video/EXT1_Explanation_EN.mp4">
+        <div class="video-thumb" style="--thumb-accent:var(--gold)">
+          <div class="play"><span><svg width="16" height="16" viewBox="0 0 16 16" fill="white"><path d="M3 2l11 6-11 6z"/></svg></span></div>
+        </div>
+        <div class="video-meta"><div class="len">MILESTONE 1</div>
+          <h3>Fair baselines &amp; a planner that stops stalling</h3>
+          <p>Why a wider action menu alone wasn't the whole story.</p></div>
+      </a>
+      <a class="video-card" href="Mini_IPHOREOS_EXT1_Video/EXT1_Memory_Explanation_EN.mp4">
+        <div class="video-thumb" style="--thumb-accent:var(--violet)">
+          <div class="play"><span><svg width="16" height="16" viewBox="0 0 16 16" fill="white"><path d="M3 2l11 6-11 6z"/></svg></span></div>
+        </div>
+        <div class="video-meta"><div class="len">MILESTONE 2</div>
+          <h3>A negative result, a diagnosis, then a fix</h3>
+          <p>The library alone didn't help. Watch why, and what did.</p></div>
+      </a>
+      <a class="video-card" href="Mini_IPHOREOS_EXT1_Video/EXT1_BiasHeldout_Explanation_EN.mp4">
+        <div class="video-thumb" style="--thumb-accent:var(--red)">
+          <div class="play"><span><svg width="16" height="16" viewBox="0 0 16 16" fill="white"><path d="M3 2l11 6-11 6z"/></svg></span></div>
+        </div>
+        <div class="video-meta"><div class="len">MILESTONES 3&ndash;4</div>
+          <h3>Breaking a confound, then freezing everything</h3>
+          <p>A sensor-bias reference, and a held-out re-run that wasn't allowed to be re-tuned.</p></div>
+      </a>
+    </div>
+  </section>
+
+  <section id="docs">
+    <div class="section-head">
+      <div class="eyebrow">Read the derivations, not just the headline</div>
+      <h2>Documentation</h2>
+    </div>
+    <div class="doc-list">
+      <a class="doc-row" href="Mathematical_Model_EXT1.pdf">
+        <div><div class="t">Mathematical Model &mdash; Extended &amp; Transfer systems</div>
+          <div class="d">Every equation, four diagrams, worked numeric examples, 21 pages.</div></div>
+        <div class="go">PDF &rarr;</div>
+      </a>
+      <a class="doc-row" href="Tutorial_EXT1_EN.pdf">
+        <div><div class="t">Illustrated Tutorial</div>
+          <div class="d">Plain-language walkthrough, same diagrams, reproducible commands.</div></div>
+        <div class="go">PDF &rarr;</div>
+      </a>
+      <a class="doc-row" href="Mini_IPHOREOS_Beamer.pdf">
+        <div><div class="t">Slide deck</div>
+          <div class="d">27 slides, the whole project end to end.</div></div>
+        <div class="go">PDF &rarr;</div>
+      </a>
+      <a class="doc-row" href="baseline_v1/Tutorial_A_to_Z.pdf">
+        <div><div class="t">Baseline system &mdash; A-to-Z physical build tutorial</div>
+          <div class="d">The &euro;107 hardware plan this all eventually has to run on.</div></div>
+        <div class="go">PDF &rarr;</div>
+      </a>
+    </div>
+  </section>
+
+  <section id="code">
+    <div class="section-head">
+      <div class="eyebrow">Nothing asserted without a test</div>
+      <h2>Code &amp; reproducibility</h2>
+    </div>
+    <div class="code-panel">
+      <div>
+        <pre>$ python -m pytest -q tests
+30 passed in 0.3s
+
+$ python experiments/run_simulation.py --trials 100
+$ python experiments/run_transfer_validation.py</pre>
+        <div class="stat-row">
+          <div class="stat"><b>30</b><span>unit tests (EXT1)</span></div>
+          <div class="stat"><b>2,400</b><span>synthetic episodes / battery</span></div>
+          <div class="stat"><b>100</b><span>held-out, untouched seeds</span></div>
+        </div>
+      </div>
+      <a class="btn btn-primary" href="https://github.com/Ouabo/Mini-IPHOREOS-public-minimal">View on GitHub</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="disclaimer"><b>Status:</b> computer-tested desktop prototype. No physical robot has been built,
+      calibrated, or run. Every result above is a simulation; physical hardware validation is a separate,
+      not-yet-attempted phase, set out explicitly in the Tutorial.</div>
+    <div class="foot-row">
+      <span>Mini-IPHOREOS &middot; Florent Ouabo Kamkumo</span>
+      <span>Prepared for grant review &middot; October 2026</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
